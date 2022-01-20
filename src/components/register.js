@@ -2,11 +2,12 @@ import React, {useState} from "react";
 // import { Form, Input, Button } from 'antd';
 // import 'antd/dist/antd.css';
 
+const Data = JSON.parse(localStorage.getItem('users'));
+
 const Register = () => {
   const [email,setEmail] = useState('');
   const [password,setPassword] = useState('');
   const [name,setName] = useState('');
-  const [isRegistering ,setRegistering] = useState(false);
 
   // const onFinish = (values) => {
   //   console.log('Success:', values);
@@ -16,7 +17,6 @@ const Register = () => {
   //   console.log('Failed:', errorInfo);
   // };
 
-  const getData = JSON.parse(localStorage.getItem('users'));
 
   function handleSubmit(e){
     e.preventDefault();
@@ -103,9 +103,10 @@ const Register = () => {
     //     </Button>
     //   </Form.Item>
     // </Form>
-
+    
     <div>
       <h1>Registration Page</h1>  
+      <p>{Data.name}, {Data.email}, {Data.password}</p>
     <form onSubmit={handleSubmit}>
     <div className="form-group m-2">
       <label for="exampleInputName1">Name</label>
@@ -124,6 +125,6 @@ const Register = () => {
   </form>
   </div>
   );
-};
+}
 
 export default Register;

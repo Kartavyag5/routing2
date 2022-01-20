@@ -1,13 +1,13 @@
 import React, {useState} from "react";
 // import 'antd/dist/antd.css';
 // import { Form, Input, Button, Checkbox } from 'antd';
-import getData from './register';
+
+const Data = JSON.parse(localStorage.getItem('users'));
 
 const Login = () => {
 
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
-    const [isRegistering ,setRegistering] = useState(false);
 
 
   // const onFinish = (values) => {
@@ -24,7 +24,7 @@ const Login = () => {
       setEmail(data['email']);
       setPassword(data['password']);
       console.log(data);
-      if(data.email===getData.email && data.password===getData.password){
+      if(data.email===Data.email && data.password===Data.password){
         alert('success');
         setEmail('');
         setPassword('');
@@ -101,7 +101,8 @@ const Login = () => {
     // </Form>
 
     <div>
-      <h1>login Page</h1>  
+      <h1>login Page</h1>
+      <p>{Data.name}, {Data.email}, {Data.password}</p>  
     <form onSubmit={handleLogin}>
     <div className="form-group m-2">
       <label for="exampleInputEmail1">Email address</label>
