@@ -11,9 +11,9 @@ import NoPage from './components/nopage';
 const App = () => {
 
   const DATA = [
-    {id:'1', title:'note1', description:'this is note1'},
-    {id:'2', title:'note2', description:'this is note2'},
-    {id:'3', title:'note3', description:'this is note3'}
+    {id:1, title:'note1', description:'this is note1'},
+    {id:2, title:'note2', description:'this is note2'},
+    {id:3, title:'note3', description:'this is note3'}
   ];
   
   return(
