@@ -1,12 +1,18 @@
 import React, {useState} from "react";
 import Note from "./note";
 import { nanoid } from 'nanoid'
+import { useDispatch, useSelector } from "react-redux";
+import {setAdd, setDescription, setTitle,NoteObj, selectAdd, selectDescription, selectTitle } from "./homeSlice";
 
 const Home = (props) => {
+  const dispatch = useDispatch();
   const [notes, setNotes] = useState(props.notes);
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [add, setAdd] = useState(false);
+  const title = useSelector(selectTitle);
+  const description = useSelector(selectDescription);
+  const add= useSelector(selectAdd);
+  // const [title, setTitle] = useState('');
+  // const [description, setDescription] = useState('');
+  // const [add, setAdd] = useState(false);
   
   function addNote(e){
     e.preventDefault();
@@ -21,9 +27,14 @@ const Home = (props) => {
       notes.push(newNote);
       setNotes(notes);
       alert('success');
-      setTitle('');
-      setDescription('');
-      setAdd(false);
+      dispatch(NoteObj({
+        title:'',
+        description:'',
+        add:false,
+    }));
+      // setTitle('');
+      // setDescription('');
+      // setAdd(false);
     }
   }
 
@@ -56,42 +67,20 @@ const Home = (props) => {
       editNote={editNote}
       deleteNote={deleteNote} />
   ));
-    // <table className="table">
-    //       <thead>
-    //         <tr>
-    //           <th scope="col">Id</th>
-    //           <th scope="col">Name</th>
-    //           <th scope="col">Description</th>
-    //         </tr>
-    //       </thead>
-    //       <tbody>
-    //         {
-    //           notes? notes.map((item,i)=>
-    //           <tr>
-    //             <th scope="row">{item.id}</th>
-    //             <td>{item.title}</td>
-    //             <td>{item.description}</td>
-    //           </tr>
-    //           )
-    //           :
-    //           <>No Data</> 
-    //         }
-    //       </tbody>
-    //     </table>
 
   const addNoteForm = (
     <div>
       <form onSubmit={addNote}>
         <div className="form-group m-2">
           <label for="exampleInputName1">Title</label>
-          <input type="text" className="form-control" name='title' onChange={(e)=>setTitle(e.target.value)} value={title} id="exampleInputTitle1" aria-describedby="nameHelp" placeholder="Enter Title" />
+          <input type="text" className="form-control" name='title' onChange={(e)=>dispatch(setTitle(e.target.value))} value={title} id="exampleInputTitle1" aria-describedby="nameHelp" placeholder="Enter Title" />
         </div>
         <div className="form-group m-2">
           <label for="exampleInputDescription1">Description</label>
-          <input type="text" className="form-control" name='description' onChange={(e)=>setDescription(e.target.value)} value={description} id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Description" />
+          <input type="text" className="form-control" name='description' onChange={(e)=>dispatch(setDescription(e.target.value))} value={description} id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Description" />
         </div>
       <button type="submit" className="btn btn-success m-2">Save</button>
-      <button className="btn btn-warning" onClick={()=>setAdd(false)}>Cancel</button>
+      <button className="btn btn-warning" onClick={()=>dispatch(setAdd(false))}>Cancel</button>
     </form>
   </div>
   );
@@ -99,7 +88,7 @@ const Home = (props) => {
   return (
     <>
     <h1>Home Page</h1>
-      <button className="btn btn-primary" onClick={()=>setAdd(true)}>Add New Note</button>
+      <button className="btn btn-primary" onClick={()=>dispatch(setAdd(true))}>Add New Note</button>
       {add? addNoteForm : <></>}
     <h3>Saved Notes:</h3>
     <table className="table">

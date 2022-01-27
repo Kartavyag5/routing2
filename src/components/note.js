@@ -1,18 +1,26 @@
 import React, {useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {setIsEditing, setNewDescription,EditNoteObj, setNewTitle, selectIsEditing,selectNewTitle,selectNewDescription } from "./noteSlice";
 
 export default function Note(props) {
 
-    const [isEditing, setEditing] = useState(false);
-    const [newTitle, setNewTitle] = useState(props.title);
-    const [newDescription, setNewDescription] = useState(props.description);
+    const dispatch = useDispatch();
+    const newTitle = useSelector(selectNewTitle);
+    const newDescription = useSelector(selectNewDescription);
+    const isEditing = useSelector(selectIsEditing);
+    // const [isEditing, setEditing] = useState(false);
+    // const [newTitle, setNewTitle] = useState(props.title);
+    // const [newDescription, setNewDescription] = useState(props.description);
     
 
     function handleEditing(e){
       e.preventDefault();
       props.editNote(props.id, newTitle, newDescription);
-      setNewTitle('');
-      setNewDescription('');
-      setEditing(false);
+      dispatch(EditNoteObj({
+        newTitle:'',
+        newDescription:'',
+        isEditing:false, 
+    }));
     }
 
     const editingTemplate = (
@@ -20,14 +28,14 @@ export default function Note(props) {
           <form onSubmit={handleEditing}>
             <div className="form-group m-2">
               <label for="exampleInputName1">Title</label>
-              <input type="text" className="form-control" name='title' onChange={(e)=>setNewTitle(e.target.value)} value={newTitle} id="exampleInputTitle1" aria-describedby="nameHelp" placeholder="Enter Title" />
+              <input type="text" className="form-control" name='title' onChange={(e)=>dispatch(setNewTitle(e.target.value))} value={newTitle} id="exampleInputTitle1" aria-describedby="nameHelp" placeholder="Enter Title" />
             </div>
             <div className="form-group m-2">
               <label for="exampleInputDescription1">Description</label>
-              <input type="text" className="form-control" name='description' onChange={(e)=>setNewDescription(e.target.value)} value={newDescription} id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Description" />
+              <input type="text" className="form-control" name='description' onChange={(e)=>dispatch(setNewDescription(e.target.value))} value={newDescription} id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Description" />
             </div>
           <button type="submit" className="btn btn-success m-2">Save</button>
-          <button type="button" className="btn btn-warning" onClick={() => setEditing(false)}>Cancel</button>
+          <button type="button" className="btn btn-warning" onClick={() => dispatch(setIsEditing(false))}>Cancel</button>
         </form>
       </div>
       );
@@ -80,7 +88,7 @@ export default function Note(props) {
             <td>{props.title}</td>
             <td>{props.description}</td>
             <td>
-                <button className='btn btn-warning m-2' onClick={() => setEditing(true)}>Edit</button>
+                <button className='btn btn-warning m-2' onClick={() => dispatch(setIsEditing(true))}>Edit</button>
                 
                 <button className='btn btn-danger' onClick={() => props.deleteNote(props.id, props.title)}>Delete</button>
             </td>
