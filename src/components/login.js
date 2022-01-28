@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { checker, setEmail, setPassword, setIsLogged, selectEmail, selectPassword,selectIsLogged } from "./loginSlice";
+import { checker, setEmail, setPassword, setIsLogged, selectEmail, selectPassword,selectIsLogged } from "../features/loginSlice";
 // import { Form, Input, Button, Checkbox } from 'antd';
 // import 'antd/dist/antd.css';
 

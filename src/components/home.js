@@ -2,8 +2,7 @@ import React, {useState} from "react";
 import Note from "./note";
 import { nanoid } from 'nanoid'
 import { useDispatch, useSelector } from "react-redux";
-import {setAdd, setDescription, setTitle,NoteObj, selectAdd, selectDescription, selectTitle } from "./homeSlice";
-
+import {setAdd, setDescription, setTitle,NoteObj, selectAdd, selectDescription, selectTitle } from "../features/homeSlice";
 const Home = (props) => {
   const dispatch = useDispatch();
   const [notes, setNotes] = useState(props.notes);

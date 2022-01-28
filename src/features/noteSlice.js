@@ -6,7 +6,6 @@ export const noteSlice = createSlice({
         EditNote:{
             newTitle:'',
             newDescription:'',
-            isEditing:false,
             
         }
     },
@@ -20,16 +19,13 @@ export const noteSlice = createSlice({
         setNewDescription : (state,action)=>{
             state.EditNote.newDescription = action.payload;
         },
-        setIsEditing : (state,action)=>{
-            state.EditNote.isEditing = action.payload;
-        }
+        
     },
 });
 
-export const {EditNoteObj, setNewTitle, setNewDescription, setIsEditing } = noteSlice.actions;
+export const {EditNoteObj, setNewTitle, setNewDescription} = noteSlice.actions;
 
 export const selectNewTitle = state => state.note.EditNote.newTitle;
 export const selectNewDescription = state => state.note.EditNote.newDescription;
-export const selectIsEditing = state => state.note.EditNote.isEditing;
 
 export default noteSlice.reducer;

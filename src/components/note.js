@@ -1,26 +1,31 @@
 import React, {useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {setIsEditing, setNewDescription,EditNoteObj, setNewTitle, selectIsEditing,selectNewTitle,selectNewDescription } from "./noteSlice";
+import {setNewDescription,EditNoteObj, setNewTitle,selectNewTitle,selectNewDescription } from "../features/noteSlice";
 
-export default function Note(props) {
-
+const Note = (props) => {
+  
     const dispatch = useDispatch();
+  
     const newTitle = useSelector(selectNewTitle);
     const newDescription = useSelector(selectNewDescription);
-    const isEditing = useSelector(selectIsEditing);
-    // const [isEditing, setEditing] = useState(false);
+    const [isEditing, setEditing] = useState(false);
     // const [newTitle, setNewTitle] = useState(props.title);
     // const [newDescription, setNewDescription] = useState(props.description);
     
-
+    function EditingMode(){
+      setEditing(true);
+      dispatch(setNewTitle(props.title));
+      dispatch(setNewDescription(props.description));
+    }
+    
     function handleEditing(e){
       e.preventDefault();
       props.editNote(props.id, newTitle, newDescription);
       dispatch(EditNoteObj({
         newTitle:'',
         newDescription:'',
-        isEditing:false, 
-    }));
+      }));
+      setEditing(false);
     }
 
     const editingTemplate = (
@@ -35,7 +40,7 @@ export default function Note(props) {
               <input type="text" className="form-control" name='description' onChange={(e)=>dispatch(setNewDescription(e.target.value))} value={newDescription} id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Description" />
             </div>
           <button type="submit" className="btn btn-success m-2">Save</button>
-          <button type="button" className="btn btn-warning" onClick={() => dispatch(setIsEditing(false))}>Cancel</button>
+          <button type="button" className="btn btn-warning" onClick={() => setEditing(false)}>Cancel</button>
         </form>
       </div>
       );
@@ -88,7 +93,7 @@ export default function Note(props) {
             <td>{props.title}</td>
             <td>{props.description}</td>
             <td>
-                <button className='btn btn-warning m-2' onClick={() => dispatch(setIsEditing(true))}>Edit</button>
+                <button className='btn btn-warning m-2' onClick={EditingMode}>Edit</button>
                 
                 <button className='btn btn-danger' onClick={() => props.deleteNote(props.id, props.title)}>Delete</button>
             </td>
@@ -120,4 +125,12 @@ export default function Note(props) {
     );
     
     return <>{isEditing ? editingTemplate : viewTemplate}</>;
-} 
+}
+
+
+
+
+
+
+
+export default Note;
