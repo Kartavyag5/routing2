@@ -40,15 +40,11 @@ const Register = () => {
     <Form
       name="basic"
       labelCol={{
-        span: 8,
+        span: 3,
       }}
       wrapperCol={{
-        span: 16,
-      }}
-      initialValues={{
-        remember: true,
-      }}
-      
+        span: 10,
+      }}      
       onSubmitCapture= {handleSubmit}
       autoComplete="off"
     >
@@ -93,8 +89,8 @@ const Register = () => {
 
       <Form.Item
         wrapperCol={{
-          offset: 8,
-          span: 16,
+          offset: 3,
+          span: 10,
         }}
       >
         <Button type="primary" htmlType="submit">

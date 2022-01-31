@@ -6,7 +6,7 @@ import Home from "./components/home";
 import Login from "./components/login";
 import Register from "./components/register";
 import NoPage from './components/nopage';
-import Ant from "./components/ant";
+import SagaEx from "./components/sagaEx";
 
 const App = () => {
 
@@ -23,7 +23,7 @@ const App = () => {
           <Route index element={<Home notes={DATA} />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
-          <Route path="ant" element={<Ant />} />
+          <Route path="sagaEx" element={<SagaEx />} />
           <Route path="*" element={<NoPage />} />
         </Route>
       </Routes>

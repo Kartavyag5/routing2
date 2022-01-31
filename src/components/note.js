@@ -1,4 +1,6 @@
 import React, {useState } from "react";
+import { Form, Input, Button } from 'antd';
+import 'antd/dist/antd.less';
 import { useDispatch, useSelector } from "react-redux";
 import {setNewDescription,EditNoteObj, setNewTitle,selectNewTitle,selectNewDescription } from "../features/noteSlice";
 
@@ -29,63 +31,71 @@ const Note = (props) => {
     }
 
     const editingTemplate = (
-        <div>
-          <form onSubmit={handleEditing}>
-            <div className="form-group m-2">
-              <label for="exampleInputName1">Title</label>
-              <input type="text" className="form-control" name='title' onChange={(e)=>dispatch(setNewTitle(e.target.value))} value={newTitle} id="exampleInputTitle1" aria-describedby="nameHelp" placeholder="Enter Title" />
-            </div>
-            <div className="form-group m-2">
-              <label for="exampleInputDescription1">Description</label>
-              <input type="text" className="form-control" name='description' onChange={(e)=>dispatch(setNewDescription(e.target.value))} value={newDescription} id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Description" />
-            </div>
-          <button type="submit" className="btn btn-success m-2">Save</button>
-          <button type="button" className="btn btn-warning" onClick={() => setEditing(false)}>Cancel</button>
-        </form>
-      </div>
+      <div>
+        <Form
+          name="basic"
+          labelCol={{
+            span: 3,
+          }}
+          wrapperCol={{
+            span: 10,
+          }}
+          
+          onSubmitCapture ={handleEditing}
+          autoComplete="off"
+        >
+          <Form.Item
+            label="Title"
+            name="title"
+            rules={[
+              {
+                required: true,
+                message: 'Please input Note Title!',
+              },
+            ]}
+          >
+            <Input name='title' onChange={(e)=>dispatch(setNewTitle(e.target.value))} value={newTitle}/>
+          </Form.Item>
+
+          <Form.Item
+            label="Description"
+            name="description"
+            rules={[
+              {
+                required: true,
+                message: 'Please input your description!',
+              },
+            ]}
+          >
+            <Input name='description' onChange={(e)=>dispatch(setNewDescription(e.target.value))} value={newDescription}/>
+          </Form.Item>
+
+          <Form.Item
+            wrapperCol={{
+            offset: 3,
+            span: 10,
+            }} 
+          >
+            <Button type="primary m-2" >Save</Button>
+            <Button  onClick={() => setEditing(false)}>Cancel</Button>
+          </Form.Item>
+        </Form>
+    </div>
+      //   <div>
+      //     <form onSubmit={handleEditing}>
+      //       <div className="form-group m-2">
+      //         <label for="exampleInputName1">Title</label>
+      //         <input type="text" className="form-control" name='title' onChange={(e)=>dispatch(setNewTitle(e.target.value))} value={newTitle} id="exampleInputTitle1" aria-describedby="nameHelp" placeholder="Enter Title" />
+      //       </div>
+      //       <div className="form-group m-2">
+      //         <label for="exampleInputDescription1">Description</label>
+      //         <input type="text" className="form-control" name='description' onChange={(e)=>dispatch(setNewDescription(e.target.value))} value={newDescription} id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Description" />
+      //       </div>
+      //     <button type="submit" className="btn btn-success m-2">Save</button>
+      //     <button type="button" className="btn btn-warning" onClick={() => setEditing(false)}>Cancel</button>
+      //   </form>
+      // </div>
       );
-
-    // const editingTemplate = (
-    //   <form className="stack-small" onSubmit={handleSubmit}>
-    //     <div className="form-group">
-    //       <label className="todo-label" htmlFor={props.id}>
-    //         New name for {props.title}
-    //       </label>
-    //       <input 
-    //         id={props.id} 
-    //         className="todo-text" 
-    //         type="text"
-    //         value={newTitle}
-    //         onChange={()=>setNewTitle(e.target.value)} 
-    //         />
-    //       <label className="todo-label" htmlFor={props.id}>
-    //         Description
-    //       </label>
-    //       <input 
-    //         id={props.id} 
-    //         className="todo-text" 
-    //         type="text"
-    //         value={newDescription}
-    //         onChange={()=>setNewDescription(e.target.value)} 
-    //         />
-    //     </div>
-    //     <div className="btn-group">
-    //       <button 
-    //         type="button" 
-    //         className="btn btn-danger todo-cancel"
-    //         onClick={() => setEditing(false)}
-
-    //       >
-    //         Cancel
-    //         <span className="visually-hidden">Editing {props.title}</span>
-    //       </button>
-    //       <button type="submit" className="btn btn__primary todo-edit">
-    //         Save
-    //         <span className="visually-hidden">new Title for {props.title}</span>
-    //       </button>
-    //     </div>
-    //   </form>
-    // );
 
     const viewTemplate = (
         <tr>
@@ -93,9 +103,8 @@ const Note = (props) => {
             <td>{props.title}</td>
             <td>{props.description}</td>
             <td>
-                <button className='btn btn-warning m-2' onClick={EditingMode}>Edit</button>
-                
-                <button className='btn btn-danger' onClick={() => props.deleteNote(props.id, props.title)}>Delete</button>
+                <Button type='primary m-2' onClick={EditingMode}>Edit</Button>
+                <Button type='danger' onClick={() => props.deleteNote(props.id, props.title)}>Delete</Button>
             </td>
         </tr>
     //   <div className="btn-group">
@@ -126,11 +135,5 @@ const Note = (props) => {
     
     return <>{isEditing ? editingTemplate : viewTemplate}</>;
 }
-
-
-
-
-
-
 
 export default Note;
