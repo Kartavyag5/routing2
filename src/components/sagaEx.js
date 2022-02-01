@@ -9,7 +9,7 @@ const SagaEx = ()=>{
   return(
     <div>
     <h1>count: {count} </h1>
-    <button onClick={dispatch(setCount(count))}>Increment</button>
+    <button onClick={()=>dispatch(setCount(count))}>Increment</button>
     </div>
   );
 }

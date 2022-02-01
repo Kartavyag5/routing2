@@ -46,7 +46,7 @@ const Note = (props) => {
         >
           <Form.Item
             label="Title"
-            name="title"
+            name="newTitle"
             rules={[
               {
                 required: true,
@@ -54,7 +54,7 @@ const Note = (props) => {
               },
             ]}
           >
-            <Input name='title' onChange={(e)=>dispatch(setNewTitle(e.target.value))} value={newTitle}/>
+            <Input htmlType='text' name='newTitle' onChange={(e)=>dispatch(setNewTitle(e.target.value))} value={newTitle}/>
           </Form.Item>
 
           <Form.Item
@@ -67,7 +67,7 @@ const Note = (props) => {
               },
             ]}
           >
-            <Input name='description' onChange={(e)=>dispatch(setNewDescription(e.target.value))} value={newDescription}/>
+            <Input name='newDescription' onChange={(e)=>dispatch(setNewDescription(e.target.value))} value={newDescription}/>
           </Form.Item>
 
           <Form.Item
@@ -76,8 +76,8 @@ const Note = (props) => {
             span: 10,
             }} 
           >
-            <Button type="primary m-2" >Save</Button>
-            <Button  onClick={() => setEditing(false)}>Cancel</Button>
+            <Button type="primary m-1" htmlType='submit' >Save</Button>
+            <Button onClick={() => setEditing(false)}>Cancel</Button>
           </Form.Item>
         </Form>
     </div>
